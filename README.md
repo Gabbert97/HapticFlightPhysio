@@ -92,11 +92,15 @@ Batch outputs are modality-specific feature tables and
 copies are not written. Baseline remains continuous QC-only because its digital
 markers are point events, not trial intervals. For fNIRS, the first baseline
 digital rising edge is used only as an anchor: the participant reference window
-starts 30 seconds later and lasts exactly 180 seconds. MultimodalPhysioKit
+starts 30 seconds later and targets 180 seconds; a shortened window is accepted
+only when more than 120 seconds remain. MultimodalPhysioKit
 estimates filtered-current reference means from that window and uses the
 participant's workbook `Age` for wavelength-specific DPF and modified
 Beer–Lambert ΔHbO/ΔHbR processing. Invalid windows or missing ages exclude
 only that participant's fNIRS trials.
+
+Final RESP extraction uses a validated accepted respiratory-rate range of
+3–30 breaths/min consistently for baseline and experimental observations.
 
 Build and inspect participant fNIRS references with:
 
@@ -129,10 +133,10 @@ methods, without repository-defined plotting, using:
 python scripts/10_multimodalphysiokit_debug_plots.py --all --save-plots --overwrite
 ```
 
-Outputs are organized by participant, phase, trial, and modality under
-`outputs/multimodalphysiokit_debug/`. The corresponding manifest contains one
-row per package-native figure. Focused runs support `--subject`, `--phase`,
-`--trial`, `--modality`, and `--show-plots`.
+Outputs use flat modality folders under `outputs/multimodalphysiokit_debug/`,
+with participant, phase, and trial encoded in each filename. The corresponding
+manifest contains one row per package-native figure. Focused runs support
+`--subject`, `--phase`, `--trial`, `--modality`, and `--show-plots`.
 
 ## MultimodalPhysioKit Recording validation
 
@@ -161,3 +165,23 @@ python scripts/13_validate_ecg_stft.py --all --save-plots --overwrite
 
 Results are isolated in `metadata/ecg_stft_validation.csv` and
 `outputs/ecg_stft_validation/`.
+
+## Final physiological feature dataset
+
+The authoritative analysis-ready dataset is
+`outputs/final_features/physiological_features_all.csv`. It contains 21
+participants and 810 observations: 21 participant-level baseline observations
+and 789 experimental trials. Its 79 physiological features cover ECG, EDA,
+RESP, skin temperature, and fNIRS. All available modalities for the same
+participant/phase/trial are stored on one row; a modality-specific exclusion or
+failure remains missing without removing the rest of that observation.
+
+The common baseline interval starts 30 seconds after the first baseline digital
+rising-edge marker and targets 180 seconds. A shortened interval is accepted
+only when more than 120 seconds remain. Final RESP features use the validated
+3–30 breaths/min acceptance range. Experimental fNIRS ΔHbO/ΔHbR features use
+each participant's own baseline-derived Red/Infrared reference values; trials
+do not estimate their own reference.
+
+Feature definitions and known units are documented in
+`outputs/final_features/feature_dictionary.csv`.

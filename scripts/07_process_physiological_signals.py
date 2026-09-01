@@ -62,7 +62,8 @@ def describe_api() -> None:
     print("  EDA: EDAProcessor(minimum_scr_amplitude=0.01); decimate 1000->100 Hz, "
           "5 Hz low-pass, external cvxEDA 1.1.0 defaults tau0=2,tau1=0.7,delta_knot=10,"
           "alpha=8e-4,gamma=1e-2; SCL/SCR features")
-    print("  RESP: RespirationProcessor(); decimate 1000->100 Hz, fourth-order 1.1 Hz "
+    print("  RESP: RespirationProcessor(min_breathing_rate=3.0, "
+          "max_breathing_rate=30.0); decimate 1000->100 Hz, fourth-order 1.1 Hz "
           "low-pass, cycle screening and respiratory timing/amplitude features")
     print("  TEMP: TemperatureProcessor(); fifth-order 1 Hz low-pass, package artifact "
           "screening, level/slope/derivative features")
@@ -177,7 +178,9 @@ def process_trial(trial: dict[str, str], selected_modalities: tuple[str, ...],
                 result = process_resp(signal, show_plots=show_plots,
                                       save_plots=save_plots, output_dir=plot_dir)
                 row["sampling_rate_output"] = result.metadata["processed_sampling_frequency"]
-                row["processing_parameters"] = "package defaults; output=100Hz"
+                row["processing_parameters"] = (
+                    "min_breathing_rate=3.0; max_breathing_rate=30.0; output=100Hz"
+                )
             else:
                 result = process_temp(signal, show_plots=show_plots,
                                       save_plots=save_plots, output_dir=plot_dir)

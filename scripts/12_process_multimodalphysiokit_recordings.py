@@ -74,7 +74,7 @@ def recording_plots(rec,pid,phase,output_root,show,save,overwrite):
 def processor_config(modality,pid,refs):
     if modality=="ecg":return ECGProcessor(label_frequency_analysis=2,return_intermediates=True),("ecg",),{}
     if modality=="eda":return EDAProcessor(minimum_scr_amplitude=.01),("eda",),{}
-    if modality=="resp":return RespirationProcessor(),("rip",),{}
+    if modality=="resp":return RespirationProcessor(min_breathing_rate=3.0,max_breathing_rate=30.0),("rip",),{}
     if modality=="temp":return TemperatureProcessor(),("temp",),{}
     ref=refs[pid]
     return FNIRSProcessor(age_years=float(ref["age_years"])),("fnirs_red","fnirs_infrared"),{"baseline_red_value":float(ref["red_reference"]),"baseline_infrared_value":float(ref["infrared_reference"])}
