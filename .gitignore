@@ -217,10 +217,41 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# Data
-Data/
-.DS_Store
-*.csv
+# Private research data and participant-level derivatives
+/data/
+/Data/
+/metadata/
+/outputs/
+**/outputs/
 
-# Generated analysis artifacts
-outputs/
+# Raw acquisition and private workbook formats
+*.h5
+*.hdf5
+*.mat
+*.xls
+*.xlsx
+*.numbers
+
+# CSV files remain globally excluded by design. Curated aggregate tables may
+# be reviewed and force-added individually in a future publication decision.
+*.csv
+*.tsv
+
+# Common raw-data and generated-image artifacts outside protected directories
+*.edf
+*.bdf
+*.acq
+*.xdf
+*.png
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+
+# Local secrets, operating-system files, and editor settings
+.env
+.env.*
+!.env.example
+.DS_Store
+.idea/
+.vscode/
