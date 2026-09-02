@@ -4,11 +4,11 @@ message: >-
   "Effects of Full-Body Haptic Feedback on Training Performance and Mental
   Workload in a Helicopter Roll-Tracking Task," once bibliographic details
   become available.
-title: HelicopterHapticTrainingPhysio
+title: HapticFlightPhysio
 type: software
 authors:
   - family-names: Luzzani
     given-names: Gabriele
 year: 2026
 license: MIT
-repository-code: https://github.com/Gabbert97/HelicopterHapticTrainingPhysio
+repository-code: https://github.com/Gabbert97/HapticFlightPhysio

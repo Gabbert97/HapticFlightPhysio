@@ -1,4 +1,4 @@
-# HelicopterHapticTrainingPhysio
+# HapticFlightPhysio
 
 This repository contains the Python processing and statistical-analysis code used to analyze multimodal physiological recordings collected during a helicopter roll-tracking simulator training experiment comparing haptic-feedback training with training without haptic feedback (NoHA). The analyzed modalities are electrocardiography (ECG), electrodermal activity (EDA), respiration, skin temperature, and functional near-infrared spectroscopy (fNIRS).
 
